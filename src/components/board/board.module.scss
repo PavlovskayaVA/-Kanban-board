@@ -1,0 +1,10 @@
+.board {
+    display: flex;
+    padding: 20px;
+}
+
+@media (max-width: 1024px) {
+    .board {
+        flex-direction: column;
+    }
+}

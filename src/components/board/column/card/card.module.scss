@@ -1,0 +1,42 @@
+.card {
+    position: relative;
+    display: block;
+    border-radius: 5px;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.25);
+    width: 246px;
+    height: 57px;
+    border-radius: 5px; 
+    background-color: #FFFFFF;
+    margin-bottom: 15px;
+    padding: 8px;
+    cursor: pointer;
+
+    >.button-remove {
+      display: none;
+      position: absolute;
+      right: 6px;
+      top: 6px;
+    }
+  
+    &:hover {
+      >.button-remove {
+        display: flex;
+      }
+    }
+  }
+  
+  .card:last-child {
+    margin-bottom: 0;
+}
+
+select {
+  outline: none;
+  margin-left: 5px;
+  padding: 4px 80px 4px 2px;
+  border: none;
+  box-shadow: 5px 5px 5px #EBECF0;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 170px;
+  cursor: pointer;
+}

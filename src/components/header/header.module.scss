@@ -1,0 +1,17 @@
+.header {
+    background-color: #0067A3;
+    height: 60px;
+    padding: 17px 21px;
+    color: #FFFFFF;
+    font-size: 28px;
+    line-height: 32.81px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+@media (max-width: 430px){
+    .header {
+        height: 90px;
+    }
+}

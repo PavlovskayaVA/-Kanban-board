@@ -1,24 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import { Board } from './components/board/board';
+import { Footer } from './components/footer/footer';
+import { Header } from './components/header/header';
+import { useState } from 'react';
 
 function App() {
+  const [valueActiveTasks, setValueActiveTasks] = useState('')
+  const [valueFinishedTasks, setValueFinishedTasks] = useState('')
+
+  function getFromBoardToApp(activeTasks,finishedTasks) {
+      setValueActiveTasks(activeTasks);
+      setValueFinishedTasks(finishedTasks)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>      
+      <Header/>
+        <main>
+          <Board getFromBoardToApp={getFromBoardToApp}/>
+        </main>
+      <Footer valueActiveTasks={valueActiveTasks} valueFinishedTasks={valueFinishedTasks}/>
+    </>
   );
 }
 
