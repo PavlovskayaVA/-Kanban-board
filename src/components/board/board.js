@@ -3,6 +3,8 @@ import css from './board.module.scss'
 import { Column } from './column/column'
 import { Card } from './card/card'
 import { useState, useEffect } from 'react'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ErrorPage404 from "../../error-page-404";
 
 export const Board = ({getFromBoardToApp}) => {
     const [valueActiveTasks, setValueActiveTasks] = useState('')
@@ -57,7 +59,7 @@ export const Board = ({getFromBoardToApp}) => {
     }
 
     function  onSubmitNewTask(task) {
-        setTasks([...tasks, {...task, id: Math.random(), status: 'Backlog'}])
+        setTasks([...tasks, {...task, id: Math.random(), status: 'Backlog', description: 'This task has no description'}])
     }
 
     function onCardEdit(id, editTitle, editDescription) { // получаем данные с карты, по который тыкнули
@@ -78,27 +80,51 @@ export const Board = ({getFromBoardToApp}) => {
           );
     }
 
+    const router = createBrowserRouter([
+      {
+        path: "/",
+        element: (
+          <div className={css.board}>
+            {taskStatuses.map((taskStatus) => {
+                return <Column 
+                          className={css.column} 
+                          taskStatus={taskStatus} 
+                          tasks={tasks} 
+                          taskStatuses={taskStatuses} 
+                          onStatusChange={onStatusChange} 
+                          onCardChange={onCardChange} 
+                          getFromColumnToBoard={getFromColumnToBoard}  
+                          onSubmitNewTask={onSubmitNewTask}
+                          onCardEdit={onCardEdit}
+                        />
+                })
+            }
+          </div>
+        ),
+        errorElement: <ErrorPage404 />,
+      },
+  
+      {
+        path: "/Card",
+        element: (
+          <div>
+            <Card 
+              tasks={tasks} 
+              idEditCard={idEditCard} 
+              titleEditCard={titleEditCard} 
+              descriptionEditCard={descriptionEditCard} 
+              onSubmitEditTask={onSubmitEditTask} 
+              setIsShowEditCard={setIsShowEditCard}
+            />
+          </div>
+        ),
+        errorElement: <ErrorPage404 />,
+      },
+    ]);
+
     return (
     <div>
-        <div className={css.board}>
-        {taskStatuses.map((taskStatus) => {
-            return <Column 
-                    className={css.column} 
-                    taskStatus={taskStatus} 
-                    tasks={tasks} 
-                    taskStatuses={taskStatuses} 
-                    onStatusChange={onStatusChange} 
-                    onCardChange={onCardChange} 
-                    getFromColumnToBoard={getFromColumnToBoard}  
-                    onSubmitNewTask={onSubmitNewTask}
-                    onCardEdit={onCardEdit}
-                />
-            })
-        }
-        </div>
-        <div>
-            {isShowEditCard && <Card tasks={tasks} idEditCard={idEditCard} titleEditCard={titleEditCard} descriptionEditCard={descriptionEditCard} onSubmitEditTask={onSubmitEditTask} setIsShowEditCard={setIsShowEditCard} />}
-        </div>      
+        <RouterProvider router={router} />      
     </div>
     )
 }

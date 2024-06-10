@@ -29,6 +29,7 @@ label {
     line-height: 21.09px;
     text-align: left;
     padding: 15px;
+    cursor: pointer;
 }
 
 .remove {
@@ -48,6 +49,15 @@ input {
 input:focus {
     color: #5E6C84;
     font-size: 18px;
+}
+
+.text {
+    color: #5E6C84;
+    font-size: 24px;
+    line-height: 21.09px;
+    text-align: left;
+    padding: 15px;
+    cursor: pointer;
 }
 
 @media (max-width: 1200px) {

@@ -4,12 +4,14 @@ import { Card } from './card/card'
 import css from './column.module.scss'
 import { IconConfirm } from '../../shared/icons/icon-confirm'
 import { useState } from 'react'
+import { IconRemove } from '../../shared/icons/icon-remove'
 
 export const Column = ({taskStatus, tasks, taskStatuses, onStatusChange, onCardChange, getFromColumnToBoard, onSubmitNewTask, onCardEdit}) => {
     const [isClick, setIsClick] = useState(false)
     const [isClickInput, setIsClickInput] = useState(false)
 
     const [title, setTitle] = useState()
+    const [error, setError] = useState(false)
 
     let arrFinished = []
     let finishedTasks;
@@ -34,11 +36,17 @@ export const Column = ({taskStatus, tasks, taskStatuses, onStatusChange, onCardC
                 {isClickInput ?
                     <div>
                         <input value={title} onChange={event => setTitle(event.target.value)}></input>
-                        <button  className={css.button} onClick={() => {
-                            onSubmitNewTask({title})
-                            setTitle('')
-                            setIsClickInput(false)
+                        <button onClick={() => {
+                            if (title !== undefined && title !== '') {
+                                onSubmitNewTask({title})
+                                setTitle('')
+                                setIsClickInput(false)
+                            } else {
+                                console.log('error')
+                                setError(true)
+                            }
                         }}>Submit</button>
+                        <button onClick={() => setIsClickInput(false)}>Close</button>
                     </div> :
                     <div onClick={() => setIsClickInput(true)}>  
                         {(taskStatus === 'Backlog') && <div><IconConfirm/> Add card</div>}
@@ -46,20 +54,23 @@ export const Column = ({taskStatus, tasks, taskStatuses, onStatusChange, onCardC
                 }
 
                 {isClick ?
-                    <select onChange={(event) => {
-                        onCardChange(event.target.value, taskStatus);
-                        setIsClick(false)
-                    }}>
-                        <option selected="true" disabled="disabled">Task</option>
-                        {tasks.map((task) => {
-                            return (  
-                                taskStatus === 'Ready' ? task.status === 'Backlog' && <option>{task.title}</option> : 
-                                taskStatus === 'In Progress' ? task.status === 'Ready' && <option>{task.title}</option> : 
-                                taskStatus === 'Finished' ? task.status === 'In Progress' && <option>{task.title}</option> : 
-                                <option>{task.title}</option> 
-                            )}
-                        )}
-                    </select> : 
+                    <div>
+                        <select onChange={(event) => {
+                                                onCardChange(event.target.value, taskStatus);
+                                                setIsClick(false)
+                                            }}>
+                                                <option selected="true" disabled="disabled">Task</option>
+                                                {tasks.map((task) => {
+                                                    return (  
+                                                        taskStatus === 'Ready' ? task.status === 'Backlog' && <option>{task.title}</option> : 
+                                                        taskStatus === 'In Progress' ? task.status === 'Ready' && <option>{task.title}</option> : 
+                                                        taskStatus === 'Finished' ? task.status === 'In Progress' && <option>{task.title}</option> : 
+                                                        <option>{task.title}</option> 
+                                                    )}
+                                                )}
+                        </select>
+                        <button onClick={() => setIsClick(false)}>Close</button>
+                    </div> : 
                     <div onClick={() => 
                         {
                             if (taskStatus === 'Backlog') {

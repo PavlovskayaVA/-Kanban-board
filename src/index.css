@@ -60,6 +60,7 @@ body {
 main {
   display: flex;
   justify-content: space-around;
+  padding: 50px;
 }
 
 @media (max-width: 1024px) {
@@ -67,3 +68,32 @@ main {
         height: 1600px;
     }
 }
+
+.page-error {
+	height: 1600px;
+	padding: 17px 21px;
+	color: #ffffff;
+	font-size: 24px;
+	line-height: 32.81px;
+  }
+  
+  button {
+	border: none;
+	color: #0079bf;
+	background-color: #fff;
+	width: 102px;
+	height: 29px;
+	border-radius: 5px;
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 21.09px;
+	margin-top: 12px;
+	cursor: pointer;
+	margin-left: 10px;
+  }
+  
+  button:hover {
+	box-shadow: 10px 5px 5px #084a70;
+	color: #084a70;
+  }
+  

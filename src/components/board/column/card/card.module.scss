@@ -24,9 +24,21 @@
       }
     }
   }
+
+
   
-  .card:last-child {
-    margin-bottom: 0;
+.card:last-child {
+  margin-bottom: 0;
+}
+
+.link {
+  &:focus {
+    color: #000;
+  }
+
+  &:hover {
+    color: #20052b;
+  }
 }
 
 select {

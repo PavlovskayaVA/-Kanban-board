@@ -49,7 +49,7 @@
     display: none;
 }
 
-.button {
+button {
     border: none;
     color: #FFF;
     background-color: #0079BF;
@@ -61,6 +61,10 @@
     line-height: 21.09px;
     margin-top: 12px;
     cursor: pointer;
+
+    &:hover {
+        color: #fff;
+    }
 }
 
 input {
@@ -73,4 +77,8 @@ input {
     border: none;
     margin-left: 4px;
     outline: none;
+}
+
+.error {
+    background-color: red;
 }
